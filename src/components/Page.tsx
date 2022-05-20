@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 
 import { pageContext } from '../utils/pageContext';
-import { ExternalPageProps } from '../utils/ssrProps';
+import { ExternalPageProps } from '../utils/declareSsrProps';
 
 import { Header } from './Header';
 
