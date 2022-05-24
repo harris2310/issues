@@ -84,5 +84,8 @@
         "Voila! Tag is here 🎉": "Voila! Tag is here 🎉",
         "Click here": "Click here",
         "Change color and create": "to change color. Click on it to create."
+    },
+    "IssueHeader": {
+      "Project": "Project"
     }
 }

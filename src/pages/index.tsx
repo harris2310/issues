@@ -64,15 +64,10 @@ const Home = ({ user, locale, ssrData }: ExternalPageProps) => {
 
     return (
         <Page locale={locale} title={t('title')}>
-            <StyledGoalsList>
-                <Grid.Container gap={0}>
-                    <Grid xs={1} />
-                    <Grid xs={23}>
-                        <div style={{ width: '100%' }}>
-                            {actualData?.goalUserIndex?.map((goal) => (
-                                <Link key={goal.id} href={routes.goal(goal.id)} passHref>
-                                    <a style={{ width: '100%' }}>
-                                        {/* <GoalItem
+            {actualData?.goalUserIndex?.map((goal) => (
+                <Link key={goal.id} href={routes.goal(goal.id)} passHref>
+                    <a style={{ width: '100%' }}>
+                        {/* <GoalItem
                                             id={goal.id}
                                             title={goal.title}
                                             projectTitle={goal.project?.title}
@@ -81,13 +76,9 @@ const Home = ({ user, locale, ssrData }: ExternalPageProps) => {
                                             createdAt={goal.createdAt}
                                             updatedAt={goal.updatedAt}
                                         /> */}
-                                    </a>
-                                </Link>
-                            ))}
-                        </div>
-                    </Grid>
-                </Grid.Container>
-            </StyledGoalsList>
+                    </a>
+                </Link>
+            ))}
 
             <pre>{JSON.stringify(actualData?.goalUserIndex, null, 2)}</pre>
         </Page>
