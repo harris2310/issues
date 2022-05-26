@@ -4,15 +4,15 @@ import { getSession } from 'next-auth/react';
 
 import { routes } from '../hooks/router';
 
-interface SSRProps {
+interface SSRProps<P = Record<string, string>> {
     user: Session['user'];
     locale: 'en' | 'ru';
     req: GetServerSidePropsContext['req'];
-    params: Record<string, string>;
+    params: P;
 }
 
-export interface ExternalPageProps extends SSRProps {
-    ssrData: any;
+export interface ExternalPageProps<D = unknown, P = unknown> extends SSRProps<P> {
+    ssrData: D;
     [key: string]: any;
 }
 

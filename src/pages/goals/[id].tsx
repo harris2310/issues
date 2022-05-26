@@ -6,11 +6,13 @@ import { Grid } from '@geist-ui/core';
 import { createFetcher } from '../../utils/createFetcher';
 import { declareSsrProps } from '../../utils/declareSsrProps';
 import { declarePage } from '../../utils/declarePage';
+import { dateAgo, currentDate } from '../../utils/dateTime';
+import { cardBorderColor } from '../../design/@generated/themes';
+import { Goal } from '../../../graphql/@generated/genql';
 import { Page, PageContent } from '../../components/Page';
 import { IssueHeader } from '../../components/IssueHeader';
 import { Tag } from '../../components/Tag';
-import { cardBorderColor } from '../../design/@generated/themes';
-import { dateAgo } from '../../utils/dateTime';
+import { PageSep } from '../../components/PageSep';
 
 const refreshInterval = 3000;
 
@@ -25,6 +27,7 @@ const fetcher = createFetcher((_, id: string) => ({
             description: true,
             state: {
                 title: true,
+                color: true,
             },
             createdAt: true,
             updatedAt: true,
@@ -43,27 +46,39 @@ const fetcher = createFetcher((_, id: string) => ({
                 name: true,
                 email: true,
             },
+            tags: {
+                id: true,
+                title: true,
+                description: true,
+                color: true,
+            },
         },
     ],
 }));
 
-const HR = styled.div`
-    border-top: 1px solid ${cardBorderColor};
-    margin: 40px -20px;
-`;
-
 const StyledCard = styled.div`
+    position: relative;
+    overflow: hidden;
     border: 1px solid ${cardBorderColor};
     border-radius: 6px;
-    padding: 12px 20px;
     min-height: 180px;
+`;
+
+const StyledCardContent = styled.div`
+    padding: 12px 20px;
+`;
+const StyledCardInfo = styled.div`
+    padding: 4px 20px;
+    background-color: ${cardBorderColor};
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 13px;
 `;
 
 export const getServerSideProps = declareSsrProps(async ({ user, params: { id } }) => ({
     ssrData: await fetcher(user, id),
 }));
 
-export default declarePage(
+export default declarePage<{ goal: Goal }, { id: string }>(
     ({ user, locale, ssrData, params: { id } }) => {
         const [mounted, setMounted] = useState(false);
 
@@ -80,7 +95,7 @@ export default declarePage(
             refreshInterval,
         });
 
-        const { goal } = data ?? ssrData;
+        const goal = data?.goal ?? ssrData.goal;
 
         return (
             <Page locale={locale} title={goal.title}>
@@ -89,23 +104,33 @@ export default declarePage(
                         issue={goal}
                         extras={
                             <>
-                                <Tag title={goal.state.title} color="rgba(255, 255, 255, 0.4)" /> • updated{' '}
-                                {dateAgo(goal.updatedAt)} • 0 comments
+                                <Tag title={goal.state.title} color={goal.state.color} /> • updated{' '}
+                                <span title={currentDate(new Date(goal.updatedAt))}>{dateAgo(goal.updatedAt)}</span> • 0
+                                comments
+                                <div>
+                                    {goal.tags?.map((t) => (
+                                        <Tag key={t.id} title={t.title} description={t.description} color={t.color} />
+                                    ))}
+                                </div>
                             </>
                         }
                     />
                 </PageContent>
 
-                <HR />
+                <PageSep />
 
                 <PageContent>
                     <Grid.Container>
                         <Grid xs={16}>
                             <div className="flexRestore" style={{ width: '100%' }}>
                                 <StyledCard>
-                                    {goal.description}
-                                    <br />
-                                    Issued by {goal.computedIssuer.name}
+                                    <StyledCardInfo>
+                                        Issued by {goal.computedIssuer.name}{' '}
+                                        <span title={currentDate(new Date(goal.createdAt))}>
+                                            {dateAgo(goal.createdAt)}
+                                        </span>
+                                    </StyledCardInfo>
+                                    <StyledCardContent>{goal.description}</StyledCardContent>
                                 </StyledCard>
                             </div>
                         </Grid>
