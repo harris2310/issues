@@ -5,6 +5,7 @@ export default createGlobalStyle`
     :root {
         --background-color: #fff;
         --text-color-primary: #000;
+        --text-color-secondary: rgba(0, 0, 0, .4);
         --card-border-color: rgba(0, 0, 0, .08);
         --form-input-background-color: rgba(0, 0, 0, .03);
         --form-input-error-color: #e00;
@@ -64,5 +65,6 @@ export default createGlobalStyle`
         --keyboard-text-color: rgba(0, 0, 0, .6);
         --keyboard-background-color: rgba(0, 0, 0, .05);
         --keyboard-border-color: rgba(0, 0, 0, .1);
+        --link-text-color: #00C2FF;
     }
 `;

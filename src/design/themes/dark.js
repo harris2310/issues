@@ -1,6 +1,7 @@
 module.exports = {
     backgroundColor: '#121212',
     textColorPrimary: '#fff',
+    textColorSecondary: 'rgba(255, 255, 255, .4)',
     cardBorderColor: 'rgba(255, 255, 255, .1)',
     formInputBackgroundColor: 'rgba(0, 0, 0, .35)',
     formInputErrorColor: '#e00',
@@ -71,4 +72,6 @@ module.exports = {
     keyboardTextColor: 'rgba(255, 255, 255, .8)',
     keyboardBackgroundColor: 'rgba(255, 255, 255, .05)',
     keyboardBorderColor: 'rgba(255, 255, 255, .1)',
+
+    linkTextColor: '#00C2FF',
 };
