@@ -1,4 +1,6 @@
 module.exports = {
+    fontDisplay:
+        '-apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Fira Sans", Roboto, Ubuntu, "Droid Sans", "Arial", sans-serif',
     backgroundColor: '#fff',
     textColorPrimary: '#000',
     cardBorderColor: 'rgba(0, 0, 0, .08)',

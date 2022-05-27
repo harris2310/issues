@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
     :root {
+        --font-display: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Fira Sans", Roboto, Ubuntu, "Droid Sans", "Arial", sans-serif;
         --background-color: #fff;
         --text-color-primary: #000;
         --card-border-color: rgba(0, 0, 0, .08);
